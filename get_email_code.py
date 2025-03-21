@@ -21,17 +21,24 @@ class EmailVerificationHandler:
         self.protocol = Config().get_protocol() or 'POP3'
         self.account = account
 
-    def get_verification_code(self, max_retries=5, retry_interval=60):
+    def get_verification_code(self, max_retries=5, retry_interval=60, manual_input=False):
         """
         获取验证码，带有重试机制。
 
         Args:
             max_retries: 最大重试次数。
             retry_interval: 重试间隔时间（秒）。
+            manual_input: 是否使用手动输入模式。
 
         Returns:
             验证码 (字符串或 None)。
         """
+        if manual_input:
+            while True:
+                code = input("请输入6位数字验证码: ").strip()
+                if re.match(r"^\d{6}$", code):
+                    return code
+                print("验证码格式错误，请输入6位数字")
 
         for attempt in range(max_retries):
             try:
@@ -271,5 +278,5 @@ class EmailVerificationHandler:
 
 if __name__ == "__main__":
     email_handler = EmailVerificationHandler()
-    code = email_handler.get_verification_code()
+    code = email_handler.get_verification_code(manual_input=True)
     print(code)
