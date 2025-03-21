@@ -30,11 +30,11 @@ class BrowserManager:
         if browser_path:
             co.set_paths(browser_path=browser_path)
 
-        co.set_pref("credentials_enable_service", False)
-        co.set_argument("--hide-crash-restore-bubble")
-        proxy = os.getenv("BROWSER_PROXY")
-        if proxy:
-            co.set_proxy(proxy)
+        # co.set_pref("credentials_enable_service", False)
+        # co.set_argument("--hide-crash-restore-bubble")
+        # proxy = os.getenv("BROWSER_PROXY")
+        # if proxy:
+        #     co.set_proxy(proxy)
 
         co.auto_port()
         if user_agent:
